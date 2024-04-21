@@ -1,29 +1,27 @@
 "use client";
 
-// Import required packages and components
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../services/auth';
 import SignUpForm from './SignUpForm';
 
-// Define LoginForm component
 const LoginForm = () => {
-  // State variables to manage form data and UI state
+  // State variables
   const [Email, setEmail] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
   const [Error, setError] = useState<string>('');
   const [ShowPassword , setShowPassword] = useState<boolean>(false);
-  const [showSignUp, setShowSignUp] = useState<boolean>(false); // State to toggle between login and signup forms
+  const [showSignUp, setShowSignUp] = useState<boolean>(false);
 
-  // Function to handle login submission
+  // Function to handle login
   const LogIn = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, Email, Password);
-      // Handle successful login (to be implemented)
+      // Handle successful login
     } catch (error: any) {
       setError(error.message);
       console.error(error);
@@ -35,10 +33,21 @@ const LoginForm = () => {
     setShowPassword(!ShowPassword);
   };
 
-  // Function to toggle between login and signup forms
+  // Function to toggle between login and sign up forms
   const toggleForm = () => {
     setShowSignUp(!showSignUp);
   };
+
+  // Function to send password reset email
+  const handlePasswordReset = async () => {
+    try {
+      await sendPasswordResetEmail(auth, Email);
+      alert('Password reset email sent!');
+    } catch (error: any) {
+      setError(error.message);
+      console.error(error);
+    }
+  }
 
   // Render SignUpForm if showSignUp is true
   if (showSignUp) {
@@ -51,10 +60,8 @@ const LoginForm = () => {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-semibold mb-4">Log In</h1>
 
-        {/* Display error message if there is any */}
         {Error && <p className="text-red-500 mb-4">{Error}</p>}
 
-        {/* Login form */}
         <form onSubmit={LogIn}>
           {/* Email Input */}
           <div className="mb-4">
@@ -81,7 +88,6 @@ const LoginForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              {/* Toggle password visibility */}
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
@@ -105,6 +111,13 @@ const LoginForm = () => {
             Don't have an account?{' '}
             <Link to="#" onClick={toggleForm} className="text-blue-500">
               Sign Up
+            </Link>
+          </p>
+
+          {/* Forgot Password */}
+          <p className="mt-2 text-center">
+            <Link to="#" onClick={handlePasswordReset} className="text-blue-500">
+              Forgot Password?
             </Link>
           </p>
         </form>
