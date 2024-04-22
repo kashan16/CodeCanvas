@@ -25,6 +25,7 @@ CodeCanvas is a collaborative code editor built for teams, enabling seamless cod
     - [Committing Changes 📝](#committing-changes-)
     - [Pushing Changes 🚀](#pushing-changes-)
     - [Creating a Pull Request 🔄](#creating-a-pull-request-)
+  - [MAKE CHANGE(create component) IN app/src directory by creating a new folder named after the problem / feature](#make-changecreate-component-in-appsrc-directory-by-creating-a-new-folder-named-after-the-problem--feature)
   - [Issues and Support 🆘](#issues-and-support-)
   - [License 📜](#license-)
 
@@ -134,6 +135,8 @@ When creating a pull request, ensure you include a descriptive title and detaile
 7. Click on `Create Pull Request`.
 
 By following these guidelines, you help maintain a clean and organized repository, making it easier for collaborators to review and merge your contributions.
+
+## MAKE CHANGE(create component) IN app/src directory by creating a new folder named after the problem / feature 
 
 ## Issues and Support 🆘
 
